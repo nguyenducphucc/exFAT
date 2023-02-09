@@ -11,7 +11,35 @@
 
 #include "extfat.h"
 
-int main()
+void input(){
+
+}
+
+void output(){
+
+}
+
+void help(){
+
+}
+
+void copy(){
+
+}
+
+void mmap(){
+
+}
+
+void fread(){
+
+}
+
+void verify(){
+   
+}
+
+int main(int argc, char *argv[])
 {
    // open the file system image file
    int fd = open("test.image", O_RDWR);
