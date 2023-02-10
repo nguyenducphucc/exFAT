@@ -12,6 +12,8 @@ extern "C"
     // For the details, please refer to
 
     //            https://learn.microsoft.com/en-gb/windows/win32/fileio/exfat-specification
+    
+    //kayla's code///////////
         struct Option{
     char *inputFile;
     char *outputFile;
@@ -21,7 +23,7 @@ extern "C"
     int mmapFlag;
     int freadFlag;
     };
-
+/////////////////////////////
     typedef struct
     {
         char JumpBoot[3];

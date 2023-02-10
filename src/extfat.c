@@ -9,21 +9,58 @@
 #include <sys/mman.h>
 #include <stddef.h>
 #include <ctype.h>
+#include <getopt.h>//add this
 #include "extfat.h"
+
+void input(){
+   
+}
 
 int main(int argc, char *argv[])
 {
 
+   //kayla's code//////////////////////
    struct Option op;
 
    int c = 0;
 
-   //kayla's code//////////////////////
-   while((c = getopt(argc, argv, "iohcmfr:"))!= -1){
+   while((c = getopt(argc, argv, "i:o:hcmfv:"))!= -1){
 
       switch (c){
          case 'i':
          op.inputFile = optarg;
+         break;
+
+         case 'o':
+         op.outputFile = optarg;
+         break;
+
+         case 'h':
+         op.helpFlag = 1;
+         break;
+
+         case 'm':
+         op.mmapFlag = 1;
+         break;
+
+         case 'f':
+         op.freadFlag = 1;
+         break;
+
+         case 'v':
+         op.verify = optarg;
+         break;
+         
+         case '?':
+         printf("Unknown option.");
+         break;
+
+         case ':':
+         printf("Missing argument.");
+            if (c == 'o'){
+               op.outputFile = op.inputFile;
+            }
+         break;
       }
    }
 //////////////////////////////////////
