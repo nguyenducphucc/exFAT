@@ -8,39 +8,24 @@
 #include <unistd.h>
 #include <sys/mman.h>
 #include <stddef.h>
-
+#include <ctype.h>
 #include "extfat.h"
-
-void input(){
-
-}
-
-void output(){
-
-}
-
-void help(){
-
-}
-
-void copy(){
-
-}
-
-void mmap(){
-
-}
-
-void fread(){
-
-}
-
-void verify(){
-   
-}
 
 int main(int argc, char *argv[])
 {
+
+   struct Option op;
+
+   int c = 0;
+
+   while((c = getopt(argc, argv, "iohcmfr:"))!= -1){
+
+      switch (c){
+         case 'i':
+         op.inputFile = optarg;
+      }
+   }
+
    // open the file system image file
    int fd = open("test.image", O_RDWR);
    if (fd == -1)
