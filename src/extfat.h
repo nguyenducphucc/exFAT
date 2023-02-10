@@ -3,17 +3,6 @@
 /* ensure this header can be used in a C++ program */
 #ifdef __cplusplus
 
-
-    struct Option{
-    char *inputFile;
-    char *outputFile;
-    int helpFlag;
-    int copyFlag;
-    char *verify;
-    int mmapFlag;
-    int freadFlag;
-};
-
 extern "C"
 {
 #endif
@@ -23,7 +12,15 @@ extern "C"
     // For the details, please refer to
 
     //            https://learn.microsoft.com/en-gb/windows/win32/fileio/exfat-specification
-
+        struct Option{
+    char *inputFile;
+    char *outputFile;
+    int helpFlag;
+    int copyFlag;
+    char *verify;
+    int mmapFlag;
+    int freadFlag;
+    };
 
     typedef struct
     {

@@ -18,6 +18,7 @@ int main(int argc, char *argv[])
 
    int c = 0;
 
+   //kayla's code//////////////////////
    while((c = getopt(argc, argv, "iohcmfr:"))!= -1){
 
       switch (c){
@@ -25,7 +26,7 @@ int main(int argc, char *argv[])
          op.inputFile = optarg;
       }
    }
-
+//////////////////////////////////////
    // open the file system image file
    int fd = open("test.image", O_RDWR);
    if (fd == -1)
