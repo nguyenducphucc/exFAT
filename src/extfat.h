@@ -17,6 +17,7 @@ extern "C"
         struct Option{
     char *inputFile;
     char *outputFile;
+    int outputFlag;
     int helpFlag;
     int copyFlag;
     char *verify;

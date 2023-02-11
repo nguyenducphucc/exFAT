@@ -12,8 +12,17 @@
 #include <getopt.h>//add this
 #include "extfat.h"
 
-void input(){
-   
+void help(){
+
+   printf("How To Execute:\n\n");
+   printf("In the command line, type ./extfat -(option).\n");
+   printf("The following options are:\n");
+   printf("i: takes the input file name as an argument.\n");
+   printf("o: takes the output file name as an argument. If no filename is provided, it will output file name will be the same as the input file name.\n");
+   printf("c: the input file is copied to the output file without change. \n");
+   printf("m: access the file with mmap().\n");
+   printf("f: access the file with fread().\n");
+   printf("v: takes an input file name as an argument. The main and backup boot sectors will be read and checked to see if they are the same. if they are not the same, an error message will be written to stdout.\n");
 }
 
 int main(int argc, char *argv[])
@@ -22,21 +31,27 @@ int main(int argc, char *argv[])
    //kayla's code//////////////////////
    struct Option op;
 
+   op.outputFile = 0;
+
    int c = 0;
+   //to test on command line: ./extfat -(option) (filename, if applicable)
 
    while((c = getopt(argc, argv, "i:o:hcmfv:"))!= -1){
 
       switch (c){
          case 'i':
          op.inputFile = optarg;
+         printf("%s", op.inputFile);
          break;
 
          case 'o':
          op.outputFile = optarg;
+         op.outputFlag = 1;
          break;
 
          case 'h':
          op.helpFlag = 1;
+         help();
          break;
 
          case 'm':
@@ -57,11 +72,12 @@ int main(int argc, char *argv[])
 
          case ':':
          printf("Missing argument.");
-            if (c == 'o'){
-               op.outputFile = op.inputFile;
-            }
          break;
       }
+   }
+
+   if (op.outputFlag == 0){
+      op.outputFile = op.inputFile;
    }
 //////////////////////////////////////
    // open the file system image file
