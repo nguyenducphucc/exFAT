@@ -102,8 +102,8 @@ int copyInputFileToAnotherFile(char* inputPath, char* outputPath) {
 }
 
 int main() {
-    char *hardcodeInputPath = "./test.image";
-    char *hardcodeOutputPath = "./output.image";
+    char *hardcodeInputPath = "test.image";
+    char *hardcodeOutputPath = "output.image";
     
     if(copyInputFileToAnotherFile(hardcodeInputPath, hardcodeOutputPath) != OKAY) {
       perror("Got problems while copying file to another file.");
