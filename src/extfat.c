@@ -10,6 +10,7 @@
 #include <stddef.h>
 #include <ctype.h>
 #include <getopt.h>//add this
+#include <string.h>//add this
 #include "extfat.h"
 
 void help(){
@@ -28,10 +29,12 @@ void help(){
 int main(int argc, char *argv[])
 {
 
-   //kayla's code//////////////////////
+//////////////////////////////////KAYLA'S CODE//////////////////////////////////////
    struct Option op;
 
    op.outputFile = 0;
+   op.outputFile = "";
+   op.inputFile = "";
 
    int c = 0;
    //to test on command line: ./extfat -(option) (filename, if applicable)
@@ -41,7 +44,8 @@ int main(int argc, char *argv[])
       switch (c){
          case 'i':
          op.inputFile = optarg;
-         printf("%s", op.inputFile);
+         op.outputFile = optarg;
+         printf("input file: %s\n", op.inputFile);
          break;
 
          case 'o':
@@ -64,22 +68,19 @@ int main(int argc, char *argv[])
 
          case 'v':
          op.verify = optarg;
+         printf("verify file: %s\n", op.verify);
          break;
          
          case '?':
-         printf("Unknown option.");
-         break;
-
-         case ':':
-         printf("Missing argument.");
+         printf("Unknown option or missing argument.\n");
          break;
       }
    }
 
-   if (op.outputFlag == 0){
-      op.outputFile = op.inputFile;
-   }
-//////////////////////////////////////
+   printf("output file: %s\n", op.outputFile);
+
+////////////////////////////////////////////////////////////////////////
+
    // open the file system image file
    int fd = open("test.image", O_RDWR);
    if (fd == -1)
