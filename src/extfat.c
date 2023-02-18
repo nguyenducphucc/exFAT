@@ -42,7 +42,42 @@
 
 #include "extfat.h"
 
-
+//function to take in struct pointers and compare each part of the struct
+int cmp_struct(Main_Boot* MB, Main_Boot* BB)
+{
+   int count=0;
+   if(MB->JumpBoot[0]==BB->JumpBoot[0])
+      count++;
+   if(MB->JumpBoot[1]==BB->JumpBoot[1])
+      count++;
+   if(MB->JumpBoot[2]==BB->JumpBoot[2])
+      count++;
+   if(strcmp(MB->FileSystemName,BB->FileSystemName)==0)
+      count++;
+   if(MB->PartitionOffset==BB->PartitionOffset)
+      count++;
+   if(MB->VolumeLength==BB->VolumeLength)
+      count++;
+   if(MB->FatOffset==BB->FatOffset)
+      count++;
+   if(MB->FatLength==BB->FatLength)
+      count++;
+   if(MB->ClusterHeapOffset==BB->ClusterHeapOffset)
+      count++;
+   if(MB->ClusterCount == BB->ClusterCount)
+      count++;
+   if(MB->FirstClusterOfRootDirectory==BB->FirstClusterOfRootDirectory)
+      count++;
+   if(MB->VolumeSerialNumber == BB->VolumeSerialNumber)
+      count++;
+   if(MB->PercentInUse == BB->PercentInUse)
+      count++;
+   
+   if(count==13)
+      return 0;
+   else
+      return -1;
+}
 
 int main()
 {
@@ -83,13 +118,17 @@ int main()
    }
 
    //Add in the functionality to meet the requirement #6, verifies that Main Boot Sector and Backup Boot are identical
-   int flag=memcmp(MB,BB, sizeof(Main_Boot));
+   //int flag=memcmp(MB,BB, sizeof(Main_Boot));
+
+   //call struct compare function to test if the structs are the same, returns 0 if same
+   int flag = cmp_struct(MB,BB);
 
    //Error message if main and boot are not same
    if(flag!=0)
    {
-      printf("\n\n ** MAIN AND BOOT SECTOR NOT SAME **\n\n");
+      printf("\n\n ** MAIN AND BACKUP SECTOR NOT SAME **\n\n");
    }
+
 
    // print out some things we care about
 
