@@ -51,14 +51,34 @@ int main()
       exit(0);
    }
 
+    int bytesPerSector = 2 << (MB->BytesPerSectorShift-1);
+
+   int sectorsPerCluster = 2 << (MB->SectorsPerClusterShift-1);
+
+   printf("-----> the bytesPerSector are %d\n",bytesPerSector);
+
+   printf("-----> the sectorsPerCluster are %d\n",sectorsPerCluster);
+
    // Take the pointer returned from mmap() and turn it into
    // a structure that understands the layout of the data
+
    Main_Boot *MB = (Main_Boot *)mmap(NULL,
                                      sizeof(Main_Boot),
                                      PROT_READ,
                                      MAP_PRIVATE,
                                      fd,
                                      0); // note the offset
+
+    void *t    = (Main_Boot *)mmap(NULL,
+                                     sizeof(Main_Boot) + 4096,
+                                     PROT_READ,
+                                     MAP_PRIVATE,
+                                     fd,
+                                     4096);
+   t+=(512*12)-4096;
+
+   Main_Boot *MB = (Main_Boot*) t;
+
 
    if (MB == (Main_Boot *)-1)
    {
