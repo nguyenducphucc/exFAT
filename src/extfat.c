@@ -38,8 +38,11 @@
 #include <unistd.h>
 #include <sys/mman.h>
 #include <stddef.h>
+#include <string.h>
 
 #include "extfat.h"
+
+
 
 int main()
 {
@@ -61,25 +64,28 @@ int main()
                                      fd,
                                      0); // note the offset
 
-   // int bytesPerSector = 2 << (MB->BytesPerSectorShift-1);
 
-   // int sectorsPerCluster = 2 << (MB->SectorsPerClusterShift-1);
-
-   // printf("-----> the bytesPerSector are %d\n",bytesPerSector);
-
-   // printf("-----> the sectorsPerCluster are %d\n",sectorsPerCluster);
-   
-   Main_Boot *BB = (Main_Boot *)mmap(NULL,
-                                     sizeof(Main_Boot),
+   void *t    = (Main_Boot *)mmap(NULL,
+                                     sizeof(Main_Boot) + 4096, // worse case misallignment is 4096
                                      PROT_READ,
                                      MAP_PRIVATE,
                                      fd,
-                                     512*12); // note the offset
+                                     4096); // note the offset
+
+   t+=(512*12)-4096;
+   Main_Boot *BB = (Main_Boot*) t;
 
    if (MB == (Main_Boot *)-1)
    {
       perror("error from mmap:");
       exit(0);
+   }
+
+   int flag=memcmp(MB,BB, sizeof(Main_Boot));
+
+   if(flag!=0)
+   {
+      printf("\n\n ** MAIN AND BOOT SECTOR NOT SAME **\n\n");
    }
 
    // print out some things we care about
@@ -107,8 +113,8 @@ int main()
    printf("SectorsPerClusterShift %d\n",MB->SectorsPerClusterShift);
    printf("NumberOfFats %d\n",MB->NumberOfFats);
 
-   int bytesPerSector = 2  << MB->BytesPerSectorShift;
-   int sectorsPerCluster = 2 << MB->SectorsPerClusterShift;
+   int bytesPerSector = 2  << MB->BytesPerSectorShift-1;
+   int sectorsPerCluster = 2 << MB->SectorsPerClusterShift-1;
 
    printf("-----> the bytesPerSector are %d\n",bytesPerSector);
    printf("-----> the sectorsPerCluster are %d\n",sectorsPerCluster);
