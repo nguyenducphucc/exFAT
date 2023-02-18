@@ -56,7 +56,7 @@ int main()
 
    // Take the pointer returned from mmap() and turn it into
    // a structure that understands the layout of the data
-
+   //This sets the pointer to the main boot sector, at offset 0
    Main_Boot *MB = (Main_Boot *)mmap(NULL,
                                      sizeof(Main_Boot),
                                      PROT_READ,
@@ -64,7 +64,7 @@ int main()
                                      fd,
                                      0); // note the offset
 
-
+   //This sets the pointer to backup boot sector, offset by 4096 bytes which is the page size
    void *t    = (Main_Boot *)mmap(NULL,
                                      sizeof(Main_Boot) + 4096, // worse case misallignment is 4096
                                      PROT_READ,
@@ -73,6 +73,7 @@ int main()
                                      4096); // note the offset
 
    t+=(512*12)-4096;
+   //Sets pointer to backup boot sector 
    Main_Boot *BB = (Main_Boot*) t;
 
    if (MB == (Main_Boot *)-1)
@@ -81,8 +82,10 @@ int main()
       exit(0);
    }
 
+   //Add in the functionality to meet the requirement #6, verifies that Main Boot Sector and Backup Boot are identical
    int flag=memcmp(MB,BB, sizeof(Main_Boot));
 
+   //Error message if main and boot are not same
    if(flag!=0)
    {
       printf("\n\n ** MAIN AND BOOT SECTOR NOT SAME **\n\n");
