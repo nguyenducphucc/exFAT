@@ -10,7 +10,7 @@
 #include <stddef.h>
 #include <ctype.h>
 #include <getopt.h>//add this
-#include <string.h>//add this
+#include <string.h>//a dd this
 #include "extfat.h"
 
 void help(){
