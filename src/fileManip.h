@@ -1,3 +1,4 @@
+#pragma once
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
@@ -101,13 +102,13 @@ int copyInputFileToAnotherFile(char* inputPath, char* outputPath) {
     return OKAY;
 }
 
-int main() {
-    char *hardcodeInputPath = "test.image";
-    char *hardcodeOutputPath = "output.image";
+// int main() {
+//     char *hardcodeInputPath = "test.image";
+//     char *hardcodeOutputPath = "output.image";
     
-    if(copyInputFileToAnotherFile(hardcodeInputPath, hardcodeOutputPath) != OKAY) {
-      perror("Got problems while copying file to another file.");
-    }
+//     if(copyInputFileToAnotherFile(hardcodeInputPath, hardcodeOutputPath) != OKAY) {
+//       perror("Got problems while copying file to another file.");
+//     }
 
-    return 0;
-}
+//     return 0;
+// }
