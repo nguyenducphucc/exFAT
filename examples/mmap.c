@@ -80,8 +80,7 @@ int main()
    printf("ClusterCount %d\n", MB->ClusterCount);
    printf("FirstClusterofRootDirectory %d\n", MB->FirstClusterOfRootDirectory);
    printf("VolumeSerialNumber %x\n", MB->VolumeSerialNumber);
-   printf("PercentInUse %d\n", MB->PercentInUse);
-   
+   printf("PercentInUse %d\n", MB->PercentInUse);  
 
    // check that the offsets match the documentation
    assert(offsetof(Main_Boot, PercentInUse) == 112);
@@ -91,12 +90,11 @@ int main()
    printf("SectorsPerClusterShift %d\n",MB->SectorsPerClusterShift);
    printf("NumberOfFats %d\n",MB->NumberOfFats);
 
-   int bytesPerSector = 2  << MB->BytesPerSectorShift;
-   int sectorsPerCluster = 2 << MB->SectorsPerClusterShift;
+   int bytesPerSector = 2  << (MB->BytesPerSectorShift - 1);
+   int sectorsPerCluster = 2 << (MB->SectorsPerClusterShift - 1);
 
    printf("-----> the bytesPerSector are %d\n",bytesPerSector);
    printf("-----> the sectorsPerCluster are %d\n",sectorsPerCluster);
-
    
    // unmap the file
    if (munmap(MB, sizeof(Main_Boot)) == -1)

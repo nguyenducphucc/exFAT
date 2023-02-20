@@ -20,5 +20,6 @@
             "binaryPath": "/workspaces/cse3310_s002_group_5/extfat",
             "binaryArgs": []
         }
-    ]
+    ],
+    "C_Cpp.errorSquiggles": "disabled"
 }
