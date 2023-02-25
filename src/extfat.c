@@ -1,4 +1,5 @@
 
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
@@ -24,6 +25,44 @@ void help(){
    printf("m: access the file with mmap().\n");
    printf("f: access the file with fread().\n");
    printf("v: takes an input file name as an argument. The main and backup boot sectors will be read and checked to see if they are the same. if they are not the same, an error message will be written to stdout.\n");
+}
+
+
+//function to take in struct pointers and compare each part of the struct
+int cmp_struct(Main_Boot* MB, Main_Boot* BB)
+{
+   int count=0;
+   if(MB->JumpBoot[0]==BB->JumpBoot[0])
+      count++;
+   if(MB->JumpBoot[1]==BB->JumpBoot[1])
+      count++;
+   if(MB->JumpBoot[2]==BB->JumpBoot[2])
+      count++;
+   if(strcmp(MB->FileSystemName,BB->FileSystemName)==0)
+      count++;
+   if(MB->PartitionOffset==BB->PartitionOffset)
+      count++;
+   if(MB->VolumeLength==BB->VolumeLength)
+      count++;
+   if(MB->FatOffset==BB->FatOffset)
+      count++;
+   if(MB->FatLength==BB->FatLength)
+      count++;
+   if(MB->ClusterHeapOffset==BB->ClusterHeapOffset)
+      count++;
+   if(MB->ClusterCount == BB->ClusterCount)
+      count++;
+   if(MB->FirstClusterOfRootDirectory==BB->FirstClusterOfRootDirectory)
+      count++;
+   if(MB->VolumeSerialNumber == BB->VolumeSerialNumber)
+      count++;
+   if(MB->PercentInUse == BB->PercentInUse)
+      count++;
+   
+   if(count==13)
+      return 0;
+   else
+      return -1;
 }
 
 int main(int argc, char *argv[])
@@ -89,8 +128,10 @@ int main(int argc, char *argv[])
       exit(0);
    }
 
-   // Take the pointer returned from mmap() and turn it into
+
+  // Take the pointer returned from mmap() and turn it into
    // a structure that understands the layout of the data
+   //This sets the pointer to the main boot sector, at offset 0
    Main_Boot *MB = (Main_Boot *)mmap(NULL,
                                      sizeof(Main_Boot),
                                      PROT_READ,
@@ -98,10 +139,33 @@ int main(int argc, char *argv[])
                                      fd,
                                      0); // note the offset
 
+   //This sets the pointer to backup boot sector, offset by 4096 bytes which is the page size
+   void *t    = (Main_Boot *)mmap(NULL,
+                                     sizeof(Main_Boot) + 4096, // worse case misallignment is 4096
+                                     PROT_READ,
+                                     MAP_PRIVATE,
+                                     fd,
+                                     4096); // note the offset
+
+   t+=(512*12)-4096;
+   //Sets pointer to backup boot sector 
+   Main_Boot *BB = (Main_Boot*) t;
    if (MB == (Main_Boot *)-1)
    {
       perror("error from mmap:");
       exit(0);
+   }
+
+   //Add in the functionality to meet the requirement #6, verifies that Main Boot Sector and Backup Boot are identical
+   //int flag=memcmp(MB,BB, sizeof(Main_Boot)); //
+
+   //call struct compare function to test if the structs are the same, returns 0 if same
+   int flag = cmp_struct(MB,BB);
+
+      //Error message if main and boot are not same
+   if(flag!=0)
+   {
+      printf("\n\n ** MAIN AND BACKUP SECTOR NOT SAME **\n\n");
    }
 
    // print out some things we care about
