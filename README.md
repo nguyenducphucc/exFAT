@@ -3,7 +3,7 @@ extfat utils is a utility to manipulate extfat images.
 # Command Options:
 In the command line, type ./extfat -(option).
 ```bash
-   The following options are:
+The following options are:
    i: takes the input file name as an argument.
    o: takes the output file name as an argument. If no filename is provided, it will output file name will be the same as the input file name.
    c: the input file is copied to the output file without change.
@@ -16,7 +16,7 @@ In the command line, type ./extfat -(option).
 Step 1: Create execute file:
 > $ make extfat
 
-Step 2: Create a temporary file name test.txt and then type:
+Step 2: To copy file, type:
 > $ ./extfat -i README.md -o readme.md
 
 Step 3: Compare two files:
