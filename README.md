@@ -2,6 +2,7 @@ extfat utils is a utility to manipulate extfat images.
 
 # Command Options:
 In the command line, type ./extfat -(option).
+```bash
    The following options are:
    i: takes the input file name as an argument.
    o: takes the output file name as an argument. If no filename is provided, it will output file name will be the same as the input file name.
@@ -9,7 +10,7 @@ In the command line, type ./extfat -(option).
    m: access the file with mmap().
    f: access the file with fread().
    v: takes an input file name as an argument. The main and backup boot sectors will be read and checked to see if they are the same. if they are not the same, an error message will be written to stdout.
-
+```
 # Example Invocations:
 
 Step 1: Create execute file:
