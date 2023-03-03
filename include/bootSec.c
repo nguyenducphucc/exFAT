@@ -13,9 +13,6 @@
 #include "bootSec.h"
 
 
-
-
-
 //function to take in struct pointers and compare each part of the struct
 int cmp_struct(Main_Boot* MB, Main_Boot* BB)
 {

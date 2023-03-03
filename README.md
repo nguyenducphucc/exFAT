@@ -17,7 +17,7 @@ Step 1: Create execute file:
 > $ make extfat
 
 Step 2: To copy file, type:
-> $ ./extfat -i README.md -o readme.md
+> $ ./extfat -i README.md -o readme.md -c
 
 Step 3: Compare two files:
 > $ md5sum README.md readme.md
