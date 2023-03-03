@@ -12,6 +12,7 @@
 #include <getopt.h>//add this
 #include <string.h>//a dd this
 #include "./varType.h"
+#include "fileInfo.h"
 
 
 

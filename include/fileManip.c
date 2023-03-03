@@ -9,6 +9,7 @@
 #include <sys/mman.h>
 #include <stddef.h>
 #include <string.h>
+#include "fileManip.h"
 
 #include "./varType.h"
 #define OKAY 1
