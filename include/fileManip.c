@@ -89,6 +89,9 @@ int copyInputFileToAnotherFile(Option op) {
       perror("error from getInputFileSize: ");
       return !OKAY;
     }
+    
+    lseek (fdout, size, SEEK_SET);
+    lseek (fdout, 0, SEEK_SET);
 
     // Create mappings in the virtual address space
     Main_Boot* src = mmapToFile(fdin, size, 1);
