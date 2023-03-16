@@ -44,8 +44,8 @@ struct FileInfo {
     int         status;                     // 0 is undefined, 1 is file, 2 directory
     char*       name;
 
-    int size;
-    int realSize;
+    int         size;
+    int         realSize;
     struct FileInfo** vector;
 };
 
