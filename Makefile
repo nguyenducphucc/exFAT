@@ -17,7 +17,7 @@
 CPPINCS=-I./include
 
 # all:mmap fread unit_tests extfat crc_example
-all: extfat mmap
+all: extfat
 
 # the utility that is a focus of this project
 extfat:src/extfat.c common/routines.c
