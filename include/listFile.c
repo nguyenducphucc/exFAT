@@ -7,7 +7,7 @@
 
 int64_t* getOffsetToDataRegion(char* filename) {
     // Open file descriptor of file
-    int64_t* res = (int64_t*) malloc(4 * sizeof(int64_t));
+    int64_t* res = (int64_t*) malloc(5 * sizeof(int64_t));
     res[0] = -1; 
     res[1] = -1;
 
@@ -38,6 +38,7 @@ int64_t* getOffsetToDataRegion(char* filename) {
     res[1] = src->ClusterCount * pow(2, src->SectorsPerClusterShift) * 16;
     res[2] = src->FirstClusterOfRootDirectory;
     res[3] = pow(2, src->BytesPerSectorShift) * pow(2, src->SectorsPerClusterShift);
+    res[4] = src->ClusterCount;
 
     // Unmap the file
     if (munmap(src, sizeof(Main_Boot)) == -1) {
@@ -66,6 +67,7 @@ int listDirectoryofFiles(Option op) {
     // [1]: ClusterCount * (2 ^ SectorsPerClusterShift)
     // [2]: FirstClusterOfRootDirectory
     // [3]: Bytes per Cluster
+    // [4]: ClusterCount
 
     int64_t* offset = getOffsetToDataRegion(op.inputFile);
 
@@ -84,54 +86,61 @@ int listDirectoryofFiles(Option op) {
     StreamExtensionDirectoryEntry sede;
     FileNameDirectoryEntry fnde;
 
-    int sz = offset[1] / 16;
     int cluster = 2;   // The start index of cluster is 2 according to the Microsoft document
     int count = 0;
     int limit = offset[3] / 32;
 
-    struct FileInfo** arr = malloc(sz * sizeof(struct FileInfo*));
+    struct FileInfo** arr = malloc(offset[4] * sizeof(struct FileInfo*));
     arr[offset[2]] = FIinit();
     arr[offset[2]]->name = malloc(5 * sizeof(char));
     arr[offset[2]]->name = "ROOT";
 
     // Read all data and get all files and directory
-    while(offset[1]--) {
+    PQinit();
+    PQpush(offset[2]);
+    while(!PQempty()) {
+      
+      int targetCluster = PQpop();
+      lseek(fd, (targetCluster - cluster) * offset[3], SEEK_CUR);
+      cluster = targetCluster;
 
-      // One cluster = bytesPerSector * sectorsPerCluster / 32
-      if(count == limit) cluster += 1, count = 0;
-      read(fd, &fde, 32);
-      count += 1;
+      count = 0;
+      while(count < limit) {
 
-      // The directory entry is 0x85. If not, keep reading data
-      if(fde.entryType != 0x85) continue;
-    
-      read(fd, &sede, 32);
-      count += 1;
-      fde.secondaryCount -= 1;
-      offset[1] -= 1;
-      arr[sede.firstCluster] = FIinit();
-      arr[sede.firstCluster]->status = 1 + (fde.fileAttributes == 0x0010);
-      arr[sede.firstCluster]->name = malloc((sede.nameLength + 1) * sizeof(char));
-
-      int length = sede.nameLength;
-      int at = 0;
-      char name[length + 1];
-      name[length] = 0;
-
-      while(fde.secondaryCount-- && offset[1]--) {
-        read(fd, &fnde, 32);
+        // One cluster = bytesPerSector * sectorsPerCluster / 32
+        read(fd, &fde, 32);
         count += 1;
 
-        for(i = 0; i < 15 && at < length; i++) name[at++] = (char) fnde.fileName[i];
+        // The directory entry is 0x85. If not, keep reading data
+        if(fde.entryType != 0x85) continue;
+      
+        read(fd, &sede, 32);
+        count += 1;
+        fde.secondaryCount -= 1;
+        offset[1] -= 1;
+        arr[sede.firstCluster] = FIinit();
+        arr[sede.firstCluster]->status = 1 + (fde.fileAttributes == 0x0010);
+        arr[sede.firstCluster]->name = malloc((sede.nameLength + 1) * sizeof(char));
+
+        int length = sede.nameLength;
+        int at = 0;
+        char name[length + 1];
+        name[length] = 0;
+
+        while(fde.secondaryCount--) {
+          read(fd, &fnde, 32);
+          count += 1;
+
+          for(i = 0; i < 15 && at < length; i++) name[at++] = (char) fnde.fileName[i];
+        }
+
+        strcpy(arr[sede.firstCluster]->name, name);
+        FIpush(arr[sede.firstCluster], arr[cluster]);
+        if(fde.fileAttributes == 0x0010) PQpush(sede.firstCluster);
+
       }
 
-      strcpy(arr[sede.firstCluster]->name, name);
-      FIpush(arr[sede.firstCluster], arr[cluster]);
-    }
-
-    if(offset[1] >= 0) {
-      printf("Can not traverse all data in data region! %ld\n", offset[1]);
-      return !OKAY;
+      cluster += 1; 
     }
 
     // Traverse FileInfo tree and print directory of files

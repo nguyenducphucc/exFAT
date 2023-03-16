@@ -76,4 +76,79 @@ void FItraverse(struct FileInfo* root, int nested) {
     for(int i = 0; i < root->realSize; i++) FItraverse(root->vector[i], nested + 1);
 }
 
+int* pq;
+int nul = -1;
+int pqSize;
+int realSize;
 
+void PQinit() {
+    pq = malloc(2 * sizeof(int));
+    pqSize = 1;
+    realSize = 0;
+}
+
+void PQpush(int i) {
+    realSize++;
+
+    if(realSize > pqSize) {
+        pqSize *= 2;
+        pq = realloc(pq, (pqSize + 1) * sizeof(int));
+    }
+
+    pq[realSize] = i;
+    int index = realSize;
+    int parentIndex = index / 2;
+
+    while((pq[index] < pq[parentIndex]) && index > 1) {
+        int temp = pq[index];
+        pq[index] = pq[parentIndex];
+        pq[parentIndex] = temp;
+        index = parentIndex;
+        parentIndex = index / 2;
+    }
+}
+
+int PQtop() {
+    if(!realSize) {
+        printf("There is no item in this heap");
+        return nul;
+    }
+
+    return pq[1];
+}
+
+int PQpop() {
+    if(!realSize) {
+        printf("There is no item in this heap");
+        return nul;
+    }
+
+    int res = pq[1];
+    pq[1] = pq[realSize];
+    realSize--;
+    
+    int index = 1;
+    while(index <= realSize / 2) {
+        int left = index * 2;
+        int right = index * 2 + 1;
+
+        if((pq[index] > pq[left]) || (pq[index] > pq[right])) {
+            if(pq[left] < pq[right]) {
+                int temp = pq[left];
+                pq[left] = pq[index];
+                pq[index] = temp;
+                index = left;
+            } else {
+                int temp = pq[right];
+                pq[right] = pq[index];
+                pq[index] = temp;
+                index = right;
+            }
+        } else break;
+    }
+
+    return res;
+}
+
+int PQsize() { return realSize; }
+int PQempty() { return !realSize; }
