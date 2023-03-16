@@ -34,11 +34,12 @@
         op.copyFlag = 0;
         op.helpFlag = 0;
         op.errorFlag = 0;
+        op.dirFlag = 0;
 
         int c = 0;
         //to test on command line: ./extfat -(option) (filename, if applicable)
 
-        while((c = getopt(argc, argv, "i:o:hcmfv:"))!= -1){
+        while((c = getopt(argc, argv, "i:o:hcmfdv:"))!= -1){
 
             switch (c){
                 case 'i':
@@ -68,6 +69,10 @@
 
                 case 'f':
                 op.freadFlag = 1;
+                break;
+
+                case 'd':
+                op.dirFlag = 1;
                 break;
 
                 case 'v':

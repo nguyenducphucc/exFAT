@@ -69,6 +69,7 @@ int main()
    // print out some things we care about
 
    printf("the pointer to MB is %p  \n", MB);
+   printf("TESTING: %d\n", MB->VolumeFlags);
 
    printf("JumpBoot  %d %d %d \n", MB->JumpBoot[0], MB->JumpBoot[1], MB->JumpBoot[2]);
    printf("FileSystemName %s\n", MB->FileSystemName); // warning, not required to be terminated

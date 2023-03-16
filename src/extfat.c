@@ -1,6 +1,7 @@
 #include "fileInfo.c"
 #include "fileManip.c"
 #include "bootSec.c"
+#include "listFile.c"
 
 int main(int argc, char *argv[]) {
     Option op = inputProcess(argc, argv);
@@ -8,6 +9,7 @@ int main(int argc, char *argv[]) {
 
     copyInputFileToAnotherFile(op);
     bootCheck(op);
+    listDirectoryofFiles(op);
 
     return 0;
 }
