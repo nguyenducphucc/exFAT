@@ -51,9 +51,9 @@ int cmp_struct(Main_Boot* MB, Main_Boot* BB)
 }
 
 void bootCheck(Option op) {
-   if(!op.verify) return;
+   if(!op.verifyFlag) return;
 
-   int fd = open(op.verify, O_RDWR);
+   int fd = open(op.inputFile, O_RDWR);
    if (fd == -1)
    {
       perror("file open: ");
@@ -73,14 +73,14 @@ void bootCheck(Option op) {
                                      0); // note the offset
 
    //This sets the pointer to backup boot sector, offset by 4096 bytes which is the page size
-   void *t    = (Main_Boot *)mmap(NULL,
+   void *t        = (Main_Boot *)mmap(NULL,
                                      sizeof(Main_Boot) + 4096, // worse case misallignment is 4096
                                      PROT_READ,
                                      MAP_PRIVATE,
                                      fd,
                                      4096); // note the offset
 
-   t+=(512*12)-4096;
+   t +=(512*12)-4096;
    //Sets pointer to backup boot sector 
    Main_Boot *BB = (Main_Boot*) t;
    if (MB == (Main_Boot *)-1)
@@ -90,7 +90,7 @@ void bootCheck(Option op) {
    }
 
    //Add in the functionality to meet the requirement #6, verifies that Main Boot Sector and Backup Boot are identical
-   //int flag=memcmp(MB,BB, sizeof(Main_Boot)); //
+   int flag=memcmp(MB,BB, sizeof(Main_Boot)); //
    //call struct compare function to test if the structs are the same, returns 0 if same
    if(cmp_struct(MB,BB) == 0) printf("\n\n ** MAIN AND BACKUP SECTOR ARE THE SAME **\n\n");
    else printf("\n\n ** MAIN AND BACKUP SECTOR ARE NOT THE SAME **\n\n");

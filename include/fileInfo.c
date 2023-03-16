@@ -35,11 +35,12 @@
         op.helpFlag = 0;
         op.errorFlag = 0;
         op.dirFlag = 0;
+        op.verifyFlag = 0;
 
         int c = 0;
         //to test on command line: ./extfat -(option) (filename, if applicable)
 
-        while((c = getopt(argc, argv, "i:o:hcmfdv:"))!= -1){
+        while((c = getopt(argc, argv, "i:o:chmfdv::"))!= -1){
 
             switch (c){
                 case 'i':
@@ -76,8 +77,7 @@
                 break;
 
                 case 'v':
-                op.verify = optarg;
-                // printf("\nverify file: %s\n", op.verify);
+                op.verifyFlag = 1;
                 break;
                 
                 case '?':
