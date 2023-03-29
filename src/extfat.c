@@ -1,5 +1,5 @@
 #include "fileInfo.c"
-#include "verify.c"
+//#include "verify.c"
 #include "fileManip.c"
 #include "bootSec.c"
 

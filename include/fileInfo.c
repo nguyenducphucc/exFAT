@@ -11,7 +11,6 @@
 #include <ctype.h>
 #include <getopt.h>//add this
 #include <string.h>//add this
-#include "extfat.h"
 
 //////////////////////////////////KAYLA'S CODE//////////////////////////////////////
 void help(){
