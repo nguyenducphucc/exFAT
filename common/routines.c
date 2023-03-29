@@ -3,15 +3,15 @@
 // from https://learn.microsoft.com/en-gb/windows/win32/fileio/exfat-specification
 
 
-UInt32 BootChecksum
+uint32_t BootChecksum
 (
-    UCHAR  * Sectors,        // points to an in-memory copy of the 11 sectors
-    USHORT   BytesPerSector
+    uint8_t  * Sectors,        // points to an in-memory copy of the 11 sectors
+    uint16_t   BytesPerSector
 )
 {
-    UInt32 NumberOfBytes = (UInt32)BytesPerSector * 11;
-    UInt32 Checksum = 0;
-    UInt32 Index;
+    uint32_t NumberOfBytes = (uint32_t)BytesPerSector * 11;
+    uint32_t Checksum = 0;
+    uint32_t Index;
 
     for (Index = 0; Index < NumberOfBytes; Index++)
     {
@@ -19,7 +19,7 @@ UInt32 BootChecksum
         {
             continue;
         }
-        Checksum = ((Checksum&1) ? 0x80000000 : 0) + (Checksum>>1) + (UInt32)Sectors[Index];
+        Checksum = ((Checksum&1) ? 0x80000000 : 0) + (Checksum>>1) + (uint32_t)Sectors[Index];
     }
 
     return Checksum;

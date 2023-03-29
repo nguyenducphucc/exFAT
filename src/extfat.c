@@ -10,9 +10,10 @@
 #include <stddef.h>
 #include <ctype.h>
 #include <getopt.h>//add this
-#include <string.h>//a dd this
+#include <string.h>//add this
 #include "extfat.h"
 
+//////////////////////////////////KAYLA'S CODE//////////////////////////////////////
 void help(){
 
    printf("How To Execute:\n\n");
@@ -28,8 +29,6 @@ void help(){
 
 int main(int argc, char *argv[])
 {
-
-//////////////////////////////////KAYLA'S CODE//////////////////////////////////////
    struct Option op;
 
    op.outputFile = 0;

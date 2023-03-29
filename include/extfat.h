@@ -1,10 +1,3 @@
-#pragma once
-
-/* ensure this header can be used in a C++ program */
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
     // This header defines the layout of data on an extfat disk image.
     
@@ -50,9 +43,3 @@ extern "C"
         short int BootSignature;
         unsigned char ExcessSpace;
     } Main_Boot;
-  
-
-#ifdef __cplusplus
-    extern "C"
-};
-#endif

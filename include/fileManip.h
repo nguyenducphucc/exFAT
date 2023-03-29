@@ -1,5 +1,3 @@
-#pragma once
-
 
 
 int openFileDescriptor(char* path, int isReadOnly);

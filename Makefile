@@ -10,6 +10,9 @@
 #
 # No intermediate .o files or libraries are created
 
+-fsanitize=bounds-strict
+#Iteration II Task 4 addition
+
 CPPFLAGS=-Wall -Wextra -O0 -std=c17 -g3 -fsanitize=address
 # note address sanitizer "-fsanitize=address" is new. it can be
 # removed from the makefile if it causes problems.
