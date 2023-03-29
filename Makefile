@@ -10,13 +10,14 @@
 #
 # No intermediate .o files or libraries are created
 
-CPPFLAGS=-Wall -Wextra -O0 -std=c17 -g3 -fsanitize=address
+#CPPFLAGS=-Wall -Wextra -O0 -std=c17 -g3 -fsanitize=address
 # note address sanitizer "-fsanitize=address" is new. it can be
 # removed from the makefile if it causes problems.
 
 CPPINCS=-I./include
 
-all:mmap fread unit_tests extfat crc_example
+# all:mmap fread unit_tests extfat crc_example
+all: extfat
 
 # the utility that is a focus of this project
 extfat:src/extfat.c common/routines.c
