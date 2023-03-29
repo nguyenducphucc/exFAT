@@ -10,7 +10,6 @@
 #include <stddef.h>
 #include <string.h>
 
-#include "extfat.h"
 #define OKAY 1
 
 int openFileDescriptor(char* path, int isReadOnly) {
