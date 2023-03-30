@@ -1,5 +1,5 @@
 #include "fileInfo.c"
-//#include "verify.c"
+#include "verify.c"
 #include "fileManip.c"
 #include "bootSec.c"
 
@@ -9,7 +9,8 @@ int main(int argc, char *argv[]) {
 
 
     copyInputFileToAnotherFile(op);
-    bootCheck(op);
+    checkSum(op);
+    //bootCheck(op);
 
     return 0;
 }
