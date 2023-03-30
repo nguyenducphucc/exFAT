@@ -39,7 +39,7 @@
 #include <sys/mman.h>
 #include <stddef.h>
 
-//#include "extfat.h"
+#include "extfat.h"
 
 int main()
 {
