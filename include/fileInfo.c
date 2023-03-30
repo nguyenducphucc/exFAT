@@ -11,6 +11,7 @@
 #include <ctype.h>
 #include <getopt.h>//add this
 #include <string.h>//add this
+#include "fileInfo.h"
 
 //////////////////////////////////KAYLA'S CODE//////////////////////////////////////
 void help(){
