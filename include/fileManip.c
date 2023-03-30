@@ -64,7 +64,7 @@ int copyInputFileToAnotherFile(Option op) {
       printf("Missing required inputFile / outputFile");
       return !OKAY;
     }
-
+    printf("hi");
     if(!strcmp(op.inputFile, op.outputFile)) return OKAY;
 
     // Open file descriptor of input file and output file
