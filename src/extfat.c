@@ -8,7 +8,6 @@ int main(int argc, char *argv[]) {
 
     copyInputFileToAnotherFile(op);
     checkSum(op);
-    //bootCheck(op);
 
     return 0;
 }

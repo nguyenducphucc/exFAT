@@ -23,8 +23,6 @@ void checkSum(Option op){
       exit(0);
    }
 
-   // Take the pointer returned from mmap() and turn it into
-
   // Take the pointer returned from mmap() and turn it into
    // a structure that understands the layout of the data
    //This sets the pointer to the main boot sector, at offset 0
@@ -58,10 +56,14 @@ void checkSum(Option op){
    uint32_t bbrChecksum = BootChecksum((uint8_t*) BB, (short) bytesPerSector);
 
    printf("verify complete, verify = %d", (mbrChecksum==bbrChecksum));
-   printf("Name of input file: %c", op.verify);
+   printf("Name of input file: %s", op.verify);
    printf("Checksum  (MB) %x (BBR) %x\n",mbrChecksum,bbrChecksum);
-   
-   if(mbrChecksum==bbrChecksum){printf("The main and backup boot sectors are the same.")}
-   else{printf("The main and backup boot sectors are different.")};
+
+   if(mbrChecksum==bbrChecksum){
+      printf("The main and backup boot sectors are the same.");
+      }
+   else{
+      printf("The main and backup boot sectors are different.");
+      }
 
 }
