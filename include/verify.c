@@ -54,8 +54,6 @@ void checkSum(Option op){
 
     int bytesPerSector = 2  << (MB->BytesPerSectorShift - 1);
 
-    //uint8_t sectors[2] = {MB,BB};
-
    uint32_t mbrChecksum = BootChecksum((uint8_t*) MB, (short) bytesPerSector);
    uint32_t bbrChecksum = BootChecksum((uint8_t*) BB, (short) bytesPerSector);
 
