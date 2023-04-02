@@ -57,9 +57,11 @@ void checkSum(Option op){
    uint32_t mbrChecksum = BootChecksum((uint8_t*) MB, (short) bytesPerSector);
    uint32_t bbrChecksum = BootChecksum((uint8_t*) BB, (short) bytesPerSector);
 
-   printf("start");
-
+   printf("verify complete, verify = %d", (mbrChecksum==bbrChecksum));
+   printf("Name of input file: %c", op.verify);
    printf("Checksum  (MB) %x (BBR) %x\n",mbrChecksum,bbrChecksum);
+   
+   if(mbrChecksum==bbrChecksum){printf("The main and backup boot sectors are the same.")}
+   else{printf("The main and backup boot sectors are different.")};
 
-    //printf("hi");
 }
