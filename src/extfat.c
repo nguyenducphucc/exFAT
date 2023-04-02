@@ -1,7 +1,7 @@
 #include "fileInfo.c"
-#include "verify.h"
+#include "verify.c"
 #include "fileManip.c"
-#include "bootSec.c"
+//#include "bootSec.c"
 
 int main(int argc, char *argv[]) {
     Option op = inputProcess(argc, argv);
@@ -10,7 +10,7 @@ int main(int argc, char *argv[]) {
 
     copyInputFileToAnotherFile(op);
     checkSum(op);
-    bootCheck(op);
+    //bootCheck(op);
 
     return 0;
 }
