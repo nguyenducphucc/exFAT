@@ -1,3 +1,3 @@
 #pragma once
 
-void checkSum(Option op)
+void checkSum(Option op);
