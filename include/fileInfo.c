@@ -44,13 +44,14 @@
                 case 'i':
                 op.inputFile = optarg;
                 op.outputFile = optarg;
-                // printf("\ninput file: %s\n", op.inputFile);
+                op.verify = optarg;
+                //printf("\ninput file: %s\n", op.inputFile);
                 break;
 
                 case 'o':
                 op.outputFile = optarg;
                 op.outputFlag = 1;
-                // printf("\noutput file: %s\n", op.outputFile);
+                //printf("\noutput file: %s\n", op.outputFile);
                 break;
 
                 case 'c':
@@ -72,11 +73,11 @@
 
                 case 'v':
                 op.verify = optarg;
-                // printf("\nverify file: %s\n", op.verify);
+                //printf("\nverify file: %s\n", op.verify);
                 break;
                 
                 case '?':
-                printf("Unknown option or missing argument.\n");
+                //printf("Unknown option or missing argument.\n");
                 op.errorFlag = 1;
                 break;
             }

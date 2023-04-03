@@ -14,7 +14,12 @@
 #include "routines.h"
 
 void checkSum(Option op){
-    if(!op.verify) return;
+
+    if(!op.verify) {
+      return;
+    }
+
+    //printf("%s", op.verify);
 
    int fd = open(op.verify, O_RDWR);
    if (fd == -1)
@@ -27,7 +32,7 @@ void checkSum(Option op){
    // a structure that understands the layout of the data
    //This sets the pointer to the main boot sector, at offset 0
    Main_Boot *MB = (Main_Boot *)mmap(NULL,
-                                     sizeof(Main_Boot),
+                                     sizeof(Main_Boot)+5128,
                                      PROT_READ,
                                      MAP_PRIVATE,
                                      fd,
@@ -55,15 +60,15 @@ void checkSum(Option op){
    uint32_t mbrChecksum = BootChecksum((uint8_t*) MB, (short) bytesPerSector);
    uint32_t bbrChecksum = BootChecksum((uint8_t*) BB, (short) bytesPerSector);
 
-   printf("verify complete, verify = %d", (mbrChecksum==bbrChecksum));
-   printf("Name of input file: %s", op.verify);
+   printf("verify complete, verify = %d\n", (mbrChecksum==bbrChecksum));
+   printf("Name of input file: %s\n", op.verify);
    printf("Checksum  (MB) %x (BBR) %x\n",mbrChecksum,bbrChecksum);
 
    if(mbrChecksum==bbrChecksum){
-      printf("The main and backup boot sectors are the same.");
+      printf("The main and backup boot sectors are the same.\n");
       }
    else{
-      printf("The main and backup boot sectors are different.");
+      printf("The main and backup boot sectors are different.\n");
       }
 
 }
