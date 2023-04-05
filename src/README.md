@@ -11,7 +11,7 @@ The following options are:
    f: access the file with fread().
    v: takes an input file name as an argument. The main and backup boot sectors will be read and checked to see if they are the same. if they are not the same, an error message will be written to stdout.
 ```
-# Example Invocations:
+# Example Invocations (As of Iteration II, Task 4):
 
 Step 1: Create execute file:
 > $ make extfat
