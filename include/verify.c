@@ -15,7 +15,7 @@
 
 void checkSum(Option op){
 
-    if(!op.verify) {
+    if(op.verifyFlag == 0) {
       return;
     }
 

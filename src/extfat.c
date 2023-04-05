@@ -7,7 +7,6 @@ int main(int argc, char *argv[]) {
 
     if(op.helpFlag || op.errorFlag) return 0;
 
-    //copyInputFileToAnotherFile(op);
     checkSum(op);
 
     return 0;

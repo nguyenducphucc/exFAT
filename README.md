@@ -1,11 +1,11 @@
 extfat utils is a utility to manipulate extfat images.
 
 # Command Options:
-< Keep this up to date >
+(As of Iteration II, Task 4)
+ -v (inputfile): 
 
 # Example Invocations:
-< Provide examples of use here >
-
+./extfat -v test.image
 
 # Internals
 

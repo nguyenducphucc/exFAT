@@ -34,6 +34,7 @@
         op.copyFlag = 0;
         op.helpFlag = 0;
         op.errorFlag = 0;
+        op.verifyFlag = 0;
 
         int c = 0;
         //to test on command line: ./extfat -(option) (filename, if applicable)
@@ -73,6 +74,7 @@
 
                 case 'v':
                 op.verify = optarg;
+                op.verifyFlag = 1;
                 //printf("\nverify file: %s\n", op.verify);
                 break;
                 

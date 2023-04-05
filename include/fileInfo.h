@@ -7,6 +7,7 @@ typedef struct
     int outputFlag;
     int helpFlag;
     int copyFlag;
+    int verifyFlag;
     char *verify;
     int mmapFlag;
     int freadFlag;
