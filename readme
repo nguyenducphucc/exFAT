@@ -24,11 +24,6 @@ Step 3: Compare two files:
 
 If two hash code are the same, then the process is successful
 
-(As of Iteration II, Task 4)
- -v (inputfile): 
-
-# Example Invocations:
-./extfat -v test.image
 
 # Internals
 

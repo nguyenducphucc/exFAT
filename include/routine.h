@@ -11,3 +11,4 @@ UInt32 BootChecksum
     UCHAR  * Sectors,        // points to an in-memory copy of the 11 sectors
     USHORT   BytesPerSector
 );
+
