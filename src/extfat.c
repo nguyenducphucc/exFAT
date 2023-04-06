@@ -1,6 +1,6 @@
 #include "fileInfo.c"
 #include "fileManip.c"
-#include "bootSec.c"
+#include "verify.c"
 
 int main(int argc, char *argv[]) {
     Option op = inputProcess(argc, argv);
