@@ -4,7 +4,7 @@ echo "Running system tests."
 # first, need to make sure the system is in a consistent state,
 # meaning no extfat drives are mounted, and /dev/loop2 does not exist
 # it will also delete a "test.image" file, it it exists
-
+make
 bash "tests/clean_up.bash"
 
 TestCount=0
