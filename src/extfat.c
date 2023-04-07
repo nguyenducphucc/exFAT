@@ -9,7 +9,6 @@ int main(int argc, char *argv[]) {
     if(op.helpFlag || op.errorFlag) return 0;
 
     copyInputFileToAnotherFile(op);
-    bootCheck(op);
     listDirectoryofFiles(op);
     checkSum(op);
 
