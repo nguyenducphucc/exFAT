@@ -11,7 +11,7 @@ int64_t* getOffsetToDataRegion(char* filename) {
     res[0] = -1; 
     res[1] = -1;
 
-    int fd = openFileDescriptor("./test.image", 1);
+    int fd = openFileDescriptor(filename, 1);
 
     if (fd == -1) {
       perror("error from openFile:");
@@ -60,7 +60,7 @@ int listDirectoryofFiles(Option op) {
       return !OKAY;
     }
 
-    int i, j, k;
+    int i;
 
     // Get offset so that it can skip Main Boot, Backup Boot, and FAT region and then read Data Region
     // [0]: ClusterHeapOffset
@@ -93,7 +93,7 @@ int listDirectoryofFiles(Option op) {
     struct FileInfo** arr = malloc(offset[4] * sizeof(struct FileInfo*));
     arr[offset[2]] = FIinit();
     arr[offset[2]]->name = malloc(5 * sizeof(char));
-    arr[offset[2]]->name = "ROOT";
+    strcpy(arr[offset[2]]->name, "ROOT");
 
     // Read all data and get all files and directory
     PQinit();
@@ -122,18 +122,18 @@ int listDirectoryofFiles(Option op) {
         arr[sede.firstCluster]->name = malloc((sede.nameLength + 1) * sizeof(char));
 
         int length = sede.nameLength;
+        arr[sede.firstCluster]->name[length] = 0;
+        // arr[sede.firstCluster]->name[length] = 97;
         int at = 0;
-        char name[length + 1];
-        name[length] = 0;
 
         while(fde.secondaryCount--) {
           read(fd, &fnde, 32);
           count += 1;
 
-          for(i = 0; i < 15 && at < length; i++) name[at++] = (char) fnde.fileName[i];
+          for(i = 0; i < 15 && at < length; i++) arr[sede.firstCluster]->name[at++] = (char)fnde.fileName[i];
         }
 
-        strcpy(arr[sede.firstCluster]->name, name);
+        // strcpy(arr[sede.firstCluster]->name, name);
         FIpush(arr[sede.firstCluster], arr[cluster]);
         if(fde.fileAttributes == 0x0010) PQpush(sede.firstCluster);
 
@@ -144,6 +144,13 @@ int listDirectoryofFiles(Option op) {
 
     // Traverse FileInfo tree and print directory of files
     FItraverse(arr[offset[2]], 0);
+
+    // Free space to avoid leak memory
+    FIclear(arr[offset[2]]);
+    free(arr);
+    free(offset);
+
+    // Close the file descriptor
     close(fd);
     return OKAY; 
 }

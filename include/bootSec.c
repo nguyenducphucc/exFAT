@@ -90,7 +90,7 @@ void bootCheck(Option op) {
    }
 
    //Add in the functionality to meet the requirement #6, verifies that Main Boot Sector and Backup Boot are identical
-   int flag=memcmp(MB,BB, sizeof(Main_Boot)); //
+   // int flag=memcmp(MB,BB, sizeof(Main_Boot)); 
    //call struct compare function to test if the structs are the same, returns 0 if same
    if(cmp_struct(MB,BB) == 0) printf("\n\n ** MAIN AND BACKUP SECTOR ARE THE SAME **\n\n");
    else printf("\n\n ** MAIN AND BACKUP SECTOR ARE NOT THE SAME **\n\n");

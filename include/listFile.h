@@ -69,11 +69,19 @@ void FIpush(struct FileInfo* from, struct FileInfo* to) {
 
 void FItraverse(struct FileInfo* root, int nested) {
     int i;
-
     for(i = 0; i < nested; i++) printf("     ");
     printf("|-- %s %s\n", root->name, root->status == 1 ? "(FILE)" : "(DIR)");
 
-    for(int i = 0; i < root->realSize; i++) FItraverse(root->vector[i], nested + 1);
+    for(i = 0; i < root->realSize; i++) FItraverse(root->vector[i], nested + 1);
+}
+
+void FIclear(struct FileInfo* root) {
+    int i;
+    for(i = 0; i < root->realSize; i++) FIclear(root->vector[i]);
+    
+    free(root->name);
+    free(root->vector);
+    free(root);
 }
 
 int* pq;
