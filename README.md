@@ -11,7 +11,15 @@ The following options are:
    f: access the file with fread().
    v: takes an input file name as an argument. The main and backup boot sectors will be read and checked to see if they are the same. if they are not the same, an error message will be written to stdout.
 ```
-# Example Invocations:
+# Example Invocations (verify):
+
+Step 1: Create execute file:
+> $ make extfat
+
+Step 2: To check the boot sectors, type:
+> $ ./extfat -i test.image -v
+
+# Example Invocations (copy):
 
 Step 1: Create execute file:
 > $ make extfat
@@ -23,7 +31,6 @@ Step 3: Compare two files:
 > $ md5sum README.md readme.md
 
 If two hash code are the same, then the process is successful
-
 
 # Internals
 
@@ -46,6 +53,40 @@ Before you can run the example programs, you need to have an file image.
 % ./examples/fread
 % ./examples/mmap
 ```
+
+## Misc notes, eventually delete.
+```
+dd if=/dev/zero of=zzz count=1 bs=1G
+yum install -y exfat-utils fuse fuse-exfat
+losetup /dev/loop0 diskimage 
+mount /dev/loop0 /mnt
+umount /mnt
+```
+## References
+
+
+https://pawitp.medium.com/notes-on-exfat-and-reliability-d2f194d394c2
+
+
+https://learn.microsoft.com/en-gb/windows/win32/fileio/exfat-specification
+
+
+https://uta.service-now.com/selfservice?id=ss_kb_article&sys_id=KB0011414
+
+
+https://nemequ.github.io/munit/#download
+
+
+https://www.gnu.org/software/libc/manual/html_node/Example-of-Getopt.html
+
+
+https://www.freecodecamp.org/news/how-to-use-git-and-github-in-a-team-like-a-pro/
+
+
+https://en.wikipedia.org/wiki/ExFAT
+
+
+https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax
 
 
 

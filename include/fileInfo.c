@@ -27,8 +27,6 @@
 
     Option inputProcess(int argc, char *argv[]) 
     {
-
-    //////////////////////////////////KAYLA'S CODE//////////////////////////////////////
         Option op;
         
         op.copyFlag = 0;
@@ -46,13 +44,14 @@
                 case 'i':
                 op.inputFile = optarg;
                 op.outputFile = optarg;
-                // printf("\ninput file: %s\n", op.inputFile);
+                op.verify = optarg;
+                //printf("\ninput file: %s\n", op.inputFile);
                 break;
 
                 case 'o':
                 op.outputFile = optarg;
                 op.outputFlag = 1;
-                // printf("\noutput file: %s\n", op.outputFile);
+                //printf("\noutput file: %s\n", op.outputFile);
                 break;
 
                 case 'c':
@@ -78,10 +77,10 @@
 
                 case 'v':
                 op.verifyFlag = 1;
+                //printf("\nverify file: %s\n", op.verify);
                 break;
                 
                 case '?':
-                printf("Unknown option or missing argument.\n");
                 op.errorFlag = 1;
                 break;
             }
@@ -89,5 +88,3 @@
 
         return op;
     }
-  
-

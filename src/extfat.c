@@ -1,5 +1,6 @@
 #include "fileInfo.c"
 #include "fileManip.c"
+#include "verify.c"
 #include "bootSec.c"
 #include "listFile.c"
 
@@ -10,6 +11,7 @@ int main(int argc, char *argv[]) {
     copyInputFileToAnotherFile(op);
     bootCheck(op);
     listDirectoryofFiles(op);
+    checkSum(op);
 
     return 0;
 }

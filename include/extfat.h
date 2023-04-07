@@ -2,6 +2,7 @@
 
 /* ensure this header can be used in a C++ program */
 #ifdef __cplusplus
+
 extern "C"
 {
 #endif
@@ -11,7 +12,19 @@ extern "C"
     // For the details, please refer to
 
     //            https://learn.microsoft.com/en-gb/windows/win32/fileio/exfat-specification
-
+    
+    //kayla's code///////////
+        struct Option{
+    char *inputFile;
+    char *outputFile;
+    int outputFlag;
+    int helpFlag;
+    int copyFlag;
+    char *verify;
+    int mmapFlag;
+    int freadFlag;
+    };
+/////////////////////////////
     typedef struct
     {
         char JumpBoot[3];

@@ -9,8 +9,8 @@
 #include <sys/mman.h>
 #include <stddef.h>
 #include <string.h>
+#include "fileManip.h"
 
-#include "extfat.h"
 #define OKAY 1
 
 int openFileDescriptor(char* path, int isReadOnly) {
@@ -28,7 +28,7 @@ int openFileDescriptor(char* path, int isReadOnly) {
         S_IWUSR:    user has write permission -- mode
     */
 
-    int flags = isReadOnly ? O_RDONLY : (O_RDWR | O_CREAT | O_TRUNC);
+    int flags = isReadOnly ? O_RDWR : (O_RDWR | O_CREAT | O_TRUNC);
     int mode = S_IRUSR | S_IWUSR;
     return isReadOnly ? open(path, flags) : open(path, flags, mode);
 }
@@ -58,24 +58,43 @@ Main_Boot* mmapToFile(int fd, off_t length, int isReadOnly) {
     return (Main_Boot*) mmap(addr, length, prot, flags, fd, offset);
 }
 
-int copyInputFileToAnotherFile(char* inputPath, char* outputPath) {
+int copyInputFileToAnotherFile(Option op) {
 
+    if(!op.inputFile || !op.outputFile) {
+      printf("Missing required inputFile / outputFile");
+      return !OKAY;
+    }
+   
+    if(!strcmp(op.inputFile, op.outputFile)){
+    
+      return OKAY;
+    } 
+    
     // Open file descriptor of input file and output file
-    int fdin = openFileDescriptor(inputPath, 1);
-    int fdout = openFileDescriptor(outputPath, 0);
+    int fdin = openFileDescriptor(op.inputFile, 1);
+    int fdout = openFileDescriptor(op.outputFile, 0);
 
     if (fdin == -1 || fdout == -1) {
-      perror("error from openFile: ");
+      perror("error from openFile:");
       return !OKAY;
+    }
+
+    if(!op.copyFlag) {
+      close(fdin);
+      close(fdout);
+      return OKAY;
     }
 
     // Get the size of the input file
     long size = getInputFileSize(fdin);
 
     if(size == -1) {
-      perror("error from getInputFileSize");
+      perror("error from getInputFileSize: ");
       return !OKAY;
     }
+    
+    lseek (fdout, size, SEEK_SET);
+    lseek (fdout, 0, SEEK_SET);
 
     // Create mappings in the virtual address space
     Main_Boot* src = mmapToFile(fdin, size, 1);
@@ -96,19 +115,10 @@ int copyInputFileToAnotherFile(char* inputPath, char* outputPath) {
     }
 
     // Close the file
-    close(fdin);
+    close(fdin); 
     close(fdout);
 
     return OKAY;
 }
 
-// int main() {
-//     char *hardcodeInputPath = "test.image";
-//     char *hardcodeOutputPath = "output.image";
-    
-//     if(copyInputFileToAnotherFile(hardcodeInputPath, hardcodeOutputPath) != OKAY) {
-//       perror("Got problems while copying file to another file.");
-//     }
 
-//     return 0;
-// }

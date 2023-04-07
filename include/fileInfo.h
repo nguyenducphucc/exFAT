@@ -8,7 +8,8 @@ typedef struct
     int helpFlag;
     int copyFlag;
     int dirFlag;
-    char verifyFlag;
+    int verifyFlag;
+    char *verify;
     int mmapFlag;
     int freadFlag;
     int errorFlag; // If an error happens, return this flag setting true
