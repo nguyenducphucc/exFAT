@@ -17,13 +17,16 @@
 CPPINCS=-I./include
 
 # all:mmap fread unit_tests extfat crc_example
-all: extfat
+all: extfat 
 
 # the utility that is a focus of this project
 extfat:src/extfat.c common/routines.c
 	${CC} ${CPPFLAGS} ${CPPINCS} -o $@ $^
 
-
+#system_tests
+tests:tests/system_tests.bash
+	${CC} ${CPPFLAGS} ${CPPINCS} -o $@ $^
+	
 # unit tests
 unit_tests: munit_example
 
@@ -46,7 +49,7 @@ crc_example:examples/crc_example.c
 	${CC} ${CPPFLAGS} ${CPPINCS} -o $@ $^ -lz
 
 # run tests
-tests: run_unit_tests run_tests
+tests: run_unit_tests run_tests 
 
 run_unit_tests: munit_example
 	./munit_example
