@@ -34,10 +34,10 @@ int64_t* getOffsetToDataRegion(char* filename) {
       return res;
     }
 
-    res[0] = src->ClusterHeapOffset * 16;
-    res[1] = src->ClusterCount * pow(2, src->SectorsPerClusterShift) * 16;
+    res[0] = src->ClusterHeapOffset * (1 << src->BytesPerSectorShift) / 32;
+    res[1] = src->ClusterCount * (1 << src->SectorsPerClusterShift) / 32;   // not used
     res[2] = src->FirstClusterOfRootDirectory;
-    res[3] = pow(2, src->BytesPerSectorShift) * pow(2, src->SectorsPerClusterShift);
+    res[3] = (1 << src->BytesPerSectorShift) * (1 << src->SectorsPerClusterShift);
     res[4] = src->ClusterCount;
 
     // Unmap the file
@@ -117,7 +117,6 @@ int listDirectoryofFiles(Option op) {
         read(fd, &sede, 32);
         count += 1;
         fde.secondaryCount -= 1;
-        offset[1] -= 1;
         arr[sede.firstCluster] = FIinit();
         arr[sede.firstCluster]->status = 1 + (fde.fileAttributes == 0x0010);
         arr[sede.firstCluster]->name = malloc((sede.nameLength + 1) * sizeof(char));

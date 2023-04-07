@@ -21,7 +21,7 @@ all: extfat
 
 # the utility that is a focus of this project
 extfat:src/extfat.c common/routines.c
-	${CC} ${CPPFLAGS} ${CPPINCS} -o $@ $^ -lm
+	${CC} ${CPPFLAGS} ${CPPINCS} -o $@ $^
 
 
 # unit tests
