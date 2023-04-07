@@ -3,7 +3,7 @@ echo "Copy Files Test"
 
 result1=($(/usr/bin/md5sum test.image))
 
-$(./extfat -c -i test.image -o test2.image)
+./extfat -c -i test.image -o test2.image
 
  
  
