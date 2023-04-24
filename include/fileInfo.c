@@ -34,11 +34,12 @@
         op.errorFlag = 0;
         op.dirFlag = 0;
         op.verifyFlag = 0;
+        op.extractFlag = 0;
 
         int c = 0;
         //to test on command line: ./extfat -(option) (filename, if applicable)
 
-        while((c = getopt(argc, argv, "i:o:chmfdv::"))!= -1){
+        while((c = getopt(argc, argv, "i:o:chmfx:dv::"))!= -1){
 
             switch (c){
                 case 'i':
@@ -69,6 +70,11 @@
 
                 case 'f':
                 op.freadFlag = 1;
+                break;
+
+                case 'x':
+                op.extractFlag = 1;
+                op.extractFile = optarg;
                 break;
 
                 case 'd':
