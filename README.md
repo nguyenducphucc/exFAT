@@ -10,6 +10,8 @@ The following options are:
    m: access the file with mmap().
    f: access the file with fread().
    v: takes an input file name as an argument. The main and backup boot sectors will be read and checked to see if they are the same. if they are not the same, an error message will be written to stdout.
+   x: Extracts from the extfat image a file.
+   D: Deletes a file from the extfat image. This option requires a file name.
 ```
 # Example Invocations (verify):
 
