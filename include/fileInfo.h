@@ -6,6 +6,8 @@ typedef struct
     char *outputFile;
     int outputFlag;
     int helpFlag;
+    int extractFlag;
+    int deleteFlag;
     int copyFlag;
     char *verify;
     int mmapFlag;
