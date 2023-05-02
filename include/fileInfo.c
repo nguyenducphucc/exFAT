@@ -67,7 +67,7 @@
 
                 case 'D':
                 op.deleteFlag = 1;
-                op.deleteFlag = optarg;
+                op.deleteFile = optarg;
                 break;
 
                 case 'h':
