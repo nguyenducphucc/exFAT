@@ -7,7 +7,8 @@ echo "This test checks command line for no command."
 result1=($(/usr/bin/md5sum test.image))
 
 # this should be a call to extfat -c <infile> <outfile>
-$(./extfat -i test.image -o test2.image -c)
+
+$(./extfat -c -i test.image -o test2.image)
  
  
 result2=($(/usr/bin/md5sum test2.image))

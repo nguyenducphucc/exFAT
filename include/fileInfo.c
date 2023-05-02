@@ -29,30 +29,32 @@
 
     Option inputProcess(int argc, char *argv[]) 
     {
-
-    //////////////////////////////////KAYLA'S CODE//////////////////////////////////////
         Option op;
         
         op.copyFlag = 0;
         op.helpFlag = 0;
         op.errorFlag = 0;
+        op.dirFlag = 0;
+        op.verifyFlag = 0;
+        op.extractFlag = 0;
 
         int c = 0;
         //to test on command line: ./extfat -(option) (filename, if applicable)
 
-        while((c = getopt(argc, argv, "i:o:hcmfv:"))!= -1){
+        while((c = getopt(argc, argv, "i:o:chmfx:dv::"))!= -1){
 
             switch (c){
                 case 'i':
                 op.inputFile = optarg;
                 op.outputFile = optarg;
-                // printf("\ninput file: %s\n", op.inputFile);
+                op.verify = optarg;
+                //printf("\ninput file: %s\n", op.inputFile);
                 break;
 
                 case 'o':
                 op.outputFile = optarg;
                 op.outputFlag = 1;
-                // printf("\noutput file: %s\n", op.outputFile);
+                //printf("\noutput file: %s\n", op.outputFile);
                 break;
 
                 case 'c':
@@ -80,13 +82,21 @@
                 op.freadFlag = 1;
                 break;
 
+                case 'x':
+                op.extractFlag = 1;
+                op.extractFile = optarg;
+                break;
+
+                case 'd':
+                op.dirFlag = 1;
+                break;
+
                 case 'v':
-                op.verify = optarg;
-                // printf("\nverify file: %s\n", op.verify);
+                op.verifyFlag = 1;
+                //printf("\nverify file: %s\n", op.verify);
                 break;
                 
                 case '?':
-                printf("Unknown option or missing argument.\n");
                 op.errorFlag = 1;
                 break;
             }
@@ -94,5 +104,3 @@
 
         return op;
     }
-  
-

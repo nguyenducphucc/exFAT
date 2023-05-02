@@ -21,5 +21,14 @@
             "binaryArgs": []
         }
     ],
-    "C_Cpp.errorSquiggles": "disabled"
+    "C_Cpp.errorSquiggles": "disabled",
+    "files.associations": {
+        "algorithm": "c",
+        "vector": "c",
+        "memory": "c",
+        "optional": "c",
+        "string_view": "c",
+        "string": "c",
+        "system_error": "c"
+    }
 }

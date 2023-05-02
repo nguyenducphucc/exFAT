@@ -1,5 +1,5 @@
 #pragma once
-
+#include <sys/types.h>
 #define OKAY 1
 
 int openFileDescriptor(char* path, int isReadOnly);

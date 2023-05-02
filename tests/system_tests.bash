@@ -13,6 +13,7 @@ TestPassed=0
 
 for ImageSize in "1M" "5M" "10M" "20M" "50M" "100M"
 do
+     
      for TestScript in $(ls tests/test_copy.bash)
      do
         TestCount=$((TestCount+1))
@@ -40,6 +41,7 @@ do
      # after the test completes, need to clean up
      bash "tests/clean_up.bash"
      done
+
      for TestScript in $(ls tests/test_command_line.bash)
      do
         TestCount=$((TestCount+1))
@@ -67,6 +69,7 @@ do
      # after the test completes, need to clean up
      bash "tests/clean_up.bash"
      done
+
      for TestScript in $(ls tests/test_fread.bash)
      do
         TestCount=$((TestCount+1))
@@ -94,6 +97,7 @@ do
      # after the test completes, need to clean up
      bash "tests/clean_up.bash"
      done
+
      for TestScript in $(ls tests/test_mmap.bash)
      do
         TestCount=$((TestCount+1))
@@ -121,6 +125,7 @@ do
      # after the test completes, need to clean up
      bash "tests/clean_up.bash"
      done
+
      for TestScript in $(ls tests/test_verify.bash)
      do
         TestCount=$((TestCount+1))
