@@ -37,7 +37,7 @@
         op.dirFlag = 0;
         op.verifyFlag = 0;
         op.extractFlag = 0;
-
+        op.deleteFlag =0;
         int c = 0;
         //to test on command line: ./extfat -(option) (filename, if applicable)
 
@@ -67,6 +67,7 @@
 
                 case 'D':
                 op.deleteFlag = 1;
+                op.deleteFlag = optarg;
                 break;
 
                 case 'h':

@@ -5,6 +5,7 @@ typedef struct
     char *inputFile;
     char *outputFile;
     char *extractFile;
+    char *deleteFile;
     int outputFlag;
     int helpFlag;
     int extractFlag;

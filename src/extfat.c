@@ -4,6 +4,7 @@
 #include "bootSec.c"
 #include "listFile.c"
 #include "extractFile.c"
+#include "deleteFile.c"
 
 int main(int argc, char *argv[]) {
     Option op = inputProcess(argc, argv);
@@ -13,6 +14,7 @@ int main(int argc, char *argv[]) {
     listDirectoryofFiles(op);
     checkSum(op);
     extractFile(op);
+    deleteFile(op);
 
     return 0;
 }
