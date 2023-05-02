@@ -7,6 +7,8 @@ typedef struct
     char *extractFile;
     int outputFlag;
     int helpFlag;
+    int extractFlag;
+    int deleteFlag;
     int copyFlag;
     int dirFlag;
     int verifyFlag;
