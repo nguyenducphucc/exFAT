@@ -39,7 +39,7 @@ int deleteFile (Option op) {
     int i = 1;
     int k = 1;
 
-    // Start grabbing content of specific file
+    // Start finding the correct file
     while(i <= stkRealSize && cur != next && k) {
       k = 0;
       lseek(fd, (next - cur) * offset[3], SEEK_CUR);
