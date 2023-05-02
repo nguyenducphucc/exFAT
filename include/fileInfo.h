@@ -8,7 +8,6 @@ typedef struct
     char *deleteFile;
     int outputFlag;
     int helpFlag;
-    int extractFlag;
     int deleteFlag;
     int copyFlag;
     int dirFlag;

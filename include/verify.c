@@ -9,6 +9,7 @@
 #include <sys/mman.h>
 #include <stddef.h>
 #include <ctype.h>
+#include <string.h>
 
 #include "verify.h"
 #include "routines.h"
@@ -19,7 +20,23 @@ void checkSum(Option op){
       return;
     }
 
-    //printf("%s", op.verify);
+   int n = strlen(op.verify);
+   if(n <= 6) {
+      printf("\n This input file is inappropriate for this -v function\n\n");
+      return;
+   }
+
+   if(!(
+      op.verify[n - 1] == 'e' && 
+      op.verify[n - 2] == 'g' &&
+      op.verify[n - 3] == 'a' &&
+      op.verify[n - 4] == 'm' &&
+      op.verify[n - 5] == 'i' &&
+      op.verify[n - 6] == '.'
+   )) {
+      printf("\nThis input file is inappropriate for this -v function\n\n");
+      return;
+   }
 
    int fd = open(op.verify, O_RDWR);
    if (fd == -1)

@@ -61,10 +61,6 @@
                 op.copyFlag = 1;
                 break;
 
-                case 'x':
-                op.extractFlag = 1;
-                break;
-
                 case 'D':
                 op.deleteFlag = 1;
                 op.deleteFile = optarg;
