@@ -133,10 +133,8 @@ int listDirectoryofFiles(Option op) {
           for(i = 0; i < 15 && at < length; i++) arr[sede.firstCluster]->name[at++] = (char)fnde.fileName[i];
         }
 
-        // strcpy(arr[sede.firstCluster]->name, name);
         FIpush(arr[sede.firstCluster], arr[cluster]);
         if(fde.fileAttributes == 0x0010) PQpush(sede.firstCluster);
-
       }
 
       cluster += 1; 

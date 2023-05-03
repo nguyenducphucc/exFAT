@@ -3,6 +3,7 @@
 #include "verify.c"
 #include "bootSec.c"
 #include "listFile.c"
+#include "extractFile.c"
 
 int main(int argc, char *argv[]) {
     Option op = inputProcess(argc, argv);
@@ -11,6 +12,7 @@ int main(int argc, char *argv[]) {
     copyInputFileToAnotherFile(op);
     listDirectoryofFiles(op);
     checkSum(op);
+    extractFile(op);
 
     return 0;
 }

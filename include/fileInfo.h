@@ -4,11 +4,13 @@ typedef struct
 {
     char *inputFile;
     char *outputFile;
+    char *extractFile;
     int outputFlag;
     int helpFlag;
     int copyFlag;
     int dirFlag;
     int verifyFlag;
+    int extractFlag;
     char *verify;
     int mmapFlag;
     int freadFlag;
