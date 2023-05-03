@@ -1,9 +1,11 @@
 #!/bin/bash
-echo "Verify Files Test"
+echo "verify Files Test"
 
 result1=($(/usr/bin/md5sum test.image))
 
+
 ./extfat -v -i test.image -o test2.image -c
+
 
  
  

@@ -23,6 +23,8 @@
         printf("m: access the file with mmap().\n");
         printf("f: access the file with fread().\n");
         printf("v: takes an input file name as an argument. The main and backup boot sectors will be read and checked to see if they are the same. if they are not the same, an error message will be written to stdout.\n");
+        printf("x: Extracts from the extfat image a file.\n");
+        printf("D: Deletes a file from the extfat image. This option requires a file name.\n");
     }
 
     Option inputProcess(int argc, char *argv[]) 
@@ -35,11 +37,11 @@
         op.dirFlag = 0;
         op.verifyFlag = 0;
         op.extractFlag = 0;
-
+        op.deleteFlag = 0;
         int c = 0;
         //to test on command line: ./extfat -(option) (filename, if applicable)
 
-        while((c = getopt(argc, argv, "i:o:chmfx:dv::"))!= -1){
+        while((c = getopt(argc, argv, "i:o:chmfx:D:dv::"))!= -1){
 
             switch (c){
                 case 'i':
@@ -57,6 +59,11 @@
 
                 case 'c':
                 op.copyFlag = 1;
+                break;
+
+                case 'D':
+                op.deleteFlag = 1;
+                op.deleteFile = optarg;
                 break;
 
                 case 'h':
